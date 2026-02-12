@@ -1,9 +1,13 @@
 import AppKit
 import AppKitRadix
 
+private final class FlippedView: NSView {
+    override var isFlipped: Bool { true }
+}
+
 final class DetailViewController: NSViewController {
     private let scrollView = NSScrollView()
-    private let contentView = NSView()
+    private let contentView = FlippedView()
     private let titleLabel = NSTextField(labelWithString: "")
     private let statusLabel = NSTextField(labelWithString: "")
     private var currentComponent: ComponentItem?
@@ -38,14 +42,13 @@ final class DetailViewController: NSViewController {
             contentView.leadingAnchor.constraint(equalTo: scrollView.contentView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.contentView.trailingAnchor),
             contentView.topAnchor.constraint(equalTo: scrollView.contentView.topAnchor),
+            contentView.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.contentView.heightAnchor),
 
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -24),
+            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
 
             statusLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            statusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            statusLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -24),
+            statusLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
         ])
 
         showWelcome()
@@ -64,7 +67,8 @@ final class DetailViewController: NSViewController {
 
         NSLayoutConstraint.activate([
             demo.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 24),
-            demo.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            demo.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            demo.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: 24),
             demo.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -24),
             demo.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -24),
         ])

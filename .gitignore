@@ -19,5 +19,8 @@ Package.resolved
 *.swp
 *~
 
+# Test output
+TestResults/
+
 # Context directory (Conductor workspaces)
 .context/
